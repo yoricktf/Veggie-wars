@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Veggie Wars</title>
+</head>
+<body>
+
+  <h1>LOCATION</h1>
+  <div class="main">
+    <table id="cart">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="product">
+          <td class="name">
+            <span>PRODUCT NAME</span>
+          </td>
+          <td class="price">$<span>10</span></td>
+          <td class="quantity">
+            <input type="number" value="0" min="0" placeholder="Quantity" />
+          </td>
+          <td class="subtotal">$<span>0</span></td>
+          <td class="action">
+            <button class="btn btn-buy">BUY</button>
+            <button class="btn btn-sell">SELL</button>
+          </td>
+        </tr>
+
+        <tr class="product">
+          <td class="name">
+            <span>PRODUCT NAME</span>
+          </td>
+          <td class="price">$<span>10</span></td>
+          <td class="quantity">
+            <input type="number" value="0" min="0" placeholder="Quantity" />
+          </td>
+          <td class="subtotal">$<span>0</span></td>
+          <td class="action">
+            <button class="btn btn-buy">BUY</button>
+            <button class="btn btn-sell">SELL</button>
+          </td>
+        </tr>
+
+        <tr class="product">
+          <td class="name">
+            <span>PRODUCT NAME</span>
+          </td>
+          <td class="price">$<span>10</span></td>
+          <td class="quantity">
+            <input type="number" value="0" min="0" placeholder="Quantity" />
+          </td>
+          <td class="subtotal">$<span>0</span></td>
+          <td class="action">
+            <button class="btn btn-buy">BUY</button>
+            <button class="btn btn-sell">SELL</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+    <aside>
+      <div class="time-cell">
+        <h2>TIME REMAINING</h2>
+        <p class="time">10 DAYS</p>
+      </div>
+      <div class="money-cell">
+        <h2>CASH</h2>
+        <p class="money">$2000</p>
+      </div>
+      <h2>YOUR ITEMS</h2>
+      <div class="items-cell">
+        <p class="item">ITEM NAME</p>
+        <p class="amount">amount</p>
+      </div>
+    </aside>
+  </div>
+  <p class="calculate-total">
+    <button id="calculate" class="btn btn-success">SWITCH LOCATION</button>
+  </p>
+  <script src="index.js"></script>
+</body>
+</html>
