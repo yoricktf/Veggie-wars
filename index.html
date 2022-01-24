@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <h1>LOCATION</h1>
+  <h1 id="location">Baltimore</h1>
   <div class="main">
     <table id="cart">
       <thead>
@@ -74,22 +74,33 @@
 
     <aside>
       <div class="time-cell">
-        <h2>TIME REMAINING</h2>
+        <h2>DAYS REMAINING</h2>
         <p class="time">10 DAYS</p>
       </div>
       <div class="money-cell">
         <h2>CASH</h2>
-        <p class="money">$2000</p>
+        <p>$</p><p class="money">2000</p>
       </div>
       <h2>YOUR ITEMS</h2>
       <div class="items-cell">
         <p class="item">ITEM NAME</p>
+        <p> - </p>
+        <p class="amount">amount</p>
+      </div>
+      <div class="items-cell">
+        <p class="item">ITEM NAME</p>
+        <p> - </p>
+        <p class="amount">amount</p>
+      </div>
+      <div class="items-cell">
+        <p class="item">ITEM NAME</p>
+        <p> - </p>
         <p class="amount">amount</p>
       </div>
     </aside>
   </div>
-  <p class="calculate-total">
-    <button id="calculate" class="btn btn-success">SWITCH LOCATION</button>
+  <p class="">
+    <button id="switchLocation" class="btn btn-success">SWITCH LOCATION</button>
   </p>
   <script src="index.js"></script>
 </body>
