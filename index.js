@@ -1,11 +1,11 @@
 /*
-1.end of game alert and restart the game from the begining again
+
 2.check the amount of money available before making purchase
 3.check inventory before selling items
 4.refactor buy and sell method together into one.
 */
 
-let daysLeft = 6
+let daysLeft = 2
 
 let money = 200
 
@@ -100,9 +100,12 @@ function interpolateValues(className, object, selector1, selector2) {
   }
 }
 
-// WRITE DOCUMENTATION FOR THIS FUNCTION
+// TRIGGERS NEWDAY FUNCTION
 document.getElementById('switchLocation').onclick = function() {newDay()}
 
+
+// CHANGES LOCATION TEXT, REINITIALIZES THE VALUES OF THE VEGETABLES,
+//  COUNTS DOWN DAYS REMAINING, RERENDERS INVENTORY
 function newDay() {
   let title = document.getElementById('location').innerText
   if (title === 'Baltimore') {
@@ -117,11 +120,39 @@ function newDay() {
     Oranges: randomValue(10,10),
   }
 
-  if (daysLeft > 0) {
+
+  interpolateValues('items-cell', jacket, '.item', '.amount')
+  interpolateValues('product', vegetables, '.name span', '.price span')
+  displayStats('.money', money)
+  gameEnd()
+
+}
+
+
+// CHECKS REMAINING DAYS, DECREMENTS COUNTER OR STARTS NEW GAME
+function gameEnd() {
+  if (daysLeft === 0 ) {
+    alert(`GAME OVER!!!\nYour score is ${money}`)
+    startGame()
+  } else {
     daysLeft -= 1
     console.log(daysLeft)
+    displayStats('.time', daysLeft)
+    if (daysLeft === 0) {
+      displayStats('.time', 'LAST DAY')
+    }
   }
+}
 
+// START A NEW GAME
+function startGame() {
+  money = 200
+  daysLeft = 2
+  vegetables = {
+    Cabbage: randomValue(2,5),
+    Bananas: randomValue(5,10),
+    Oranges: randomValue(10,10),
+  }
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.time', daysLeft)
@@ -130,4 +161,4 @@ function newDay() {
 
 
 
-newDay()
+startGame()
