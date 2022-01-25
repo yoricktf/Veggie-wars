@@ -26,44 +26,33 @@ function randomValue (min, multiplyer) {
 // ADD/REMOVE ITEMS TO THE INVENTORY AND ADD/REMOVE MONEY FROM THE WALLET,
 // RERENDER THE INVENTORY
 function purchaseAndSell (event) {
-  // console.log(event.target.innerText)
-  let itemName = event.target.parentNode.parentNode.querySelector('.name span').innerHTML
-  // console.log(itemName);
-  // console.log(jacket[itemName]);
-  // console.log(itemName);
-  let amount = event.target.parentNode.parentNode.querySelector('.quantity input').value
   document.querySelectorAll('.product').forEach(function (row){
     let cost = Number(row.querySelector('.subtotal span').textContent)
     let name = row.querySelector('.name span').textContent
-
+    let amount = row.querySelector('.quantity input').value
     if (event.target.innerText === 'BUY') {
-
-      if (money > cost) {
+      if (money >= cost) {
         money -= cost
         jacket[name] += Number(row.querySelector('.quantity input').value)
-
       } else {
         alert(`you don't have enough money! You only have $${money}`)
       }
-
-    } else if (event.target.innerText === 'SELL') {
-
-      if (jacket[itemName] >= amount) {
+    } else {
+      if (jacket[name] >= amount) {
         money += cost
-        jacket[itemName] -= Number(row.querySelector('.quantity input').value)
-
-      } else {
-        alert(`you don't have enough ${itemName} to sell`)
+        jacket[name] -= Number(row.querySelector('.quantity input').value)
       }
-
+      else {
+        alert(`you don't have enough ${name} to sell`)
+      }
     }
-
     displayStats('.money', money)
     row.querySelector('.quantity input').value = ''
     interpolateValues('items-cell', jacket, '.item', '.amount')
     updateSubtotal()
   })
 }
+
 // TRIGGERS purchaseAndSell() FUNCTION
 document.querySelectorAll('.button').forEach(function (button) {
   button.onclick = purchaseAndSell
@@ -113,7 +102,6 @@ function interpolateValues(className, object, selector1, selector2) {
 // TRIGGERS newDay() FUNCTION
 document.getElementById('switchLocation').onclick = function() {newDay()}
 
-
 // CHANGES LOCATION TEXT, REINITIALIZES THE VALUES OF THE VEGETABLES,
 //  COUNTS DOWN DAYS REMAINING, RERENDERS INVENTORY
 function newDay() {
@@ -123,13 +111,11 @@ function newDay() {
   } else {
     document.getElementById('location').innerText = 'Baltimore'
   }
-
   let vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
     Oranges: randomValue(10,10),
   }
-
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.money', money)
@@ -170,7 +156,5 @@ function startGame() {
   displayStats('.time', daysLeft)
   displayStats('.money', money)
 }
-
-
 
 startGame()
