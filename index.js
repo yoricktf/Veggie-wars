@@ -1,17 +1,18 @@
 /*
-
 2.check the amount of money available before making purchase
 3.check inventory before selling items
-4.refactor buy and sell method together into one.
+
+-NICE TO HAVE--------------------------------------------------
+1. Select location from multiple options
+
+
 */
-
-let daysLeft = 2
-
-let money = 200
+let daysLeft = 0
+let money = 0
 
 // INVENTORY OF THE ITEMS THE PLAYER HAS
 let jacket = {
-  Cabbage: 0,
+  Cabbages: 0,
   Bananas: 0,
   Oranges: 0,
 }
@@ -22,41 +23,50 @@ function randomValue (min, multiplyer) {
   return value
 }
 
-// ADD ITEMS TO THE INVENTORY AND REMOVE MONEY FROM THE WALLET, RERENDER THE INVENTORY
-function purchase () {
-  document.querySelectorAll('.product').forEach(function (row){
-    let cost = row.querySelector('.subtotal span').textContent
-    money -= cost
-    displayStats('.money', money)
-    let name = row.querySelector('.name span').textContent
-    jacket[name] += Number(row.querySelector('.quantity input').value)
-    row.querySelector('.quantity input').value = ''
-    interpolateValues('items-cell', jacket, '.item', '.amount')
-    updateSubtotal()
-  })
-}
-// TRIGGERING THE PURCHASE FUNCTION
-document.querySelectorAll('.btn-buy').forEach(function (button) {
-  button.onclick = purchase
-})
-
-// REMOVE ITEMS TO THE INVENTORY AND ADD MONEY TO THE WALLET, RERENDER THE INVENTORY
-function sell () {
+// ADD/REMOVE ITEMS TO THE INVENTORY AND ADD/REMOVE MONEY FROM THE WALLET,
+// RERENDER THE INVENTORY
+function purchaseAndSell (event) {
+  // console.log(event.target.innerText)
+  let itemName = event.target.parentNode.parentNode.querySelector('.name span').innerHTML
+  // console.log(itemName);
+  // console.log(jacket[itemName]);
+  // console.log(itemName);
+  let amount = event.target.parentNode.parentNode.querySelector('.quantity input').value
   document.querySelectorAll('.product').forEach(function (row){
     let cost = Number(row.querySelector('.subtotal span').textContent)
-    console.log(cost);
-    money += cost
-    displayStats('.money', money)
     let name = row.querySelector('.name span').textContent
-    jacket[name] -= Number(row.querySelector('.quantity input').value)
+
+    if (event.target.innerText === 'BUY') {
+
+      if (money > cost) {
+        money -= cost
+        jacket[name] += Number(row.querySelector('.quantity input').value)
+
+      } else {
+        alert(`you don't have enough money! You only have $${money}`)
+      }
+
+    } else if (event.target.innerText === 'SELL') {
+
+      if (jacket[itemName] >= amount) {
+        money += cost
+        jacket[itemName] -= Number(row.querySelector('.quantity input').value)
+
+      } else {
+        alert(`you don't have enough ${itemName} to sell`)
+      }
+
+    }
+
+    displayStats('.money', money)
     row.querySelector('.quantity input').value = ''
     interpolateValues('items-cell', jacket, '.item', '.amount')
     updateSubtotal()
   })
 }
-// TRIGGERING THE SELL FUNCTION
-document.querySelectorAll('.btn-sell').forEach(function (button) {
-  button.onclick = sell
+// TRIGGERS purchaseAndSell() FUNCTION
+document.querySelectorAll('.button').forEach(function (button) {
+  button.onclick = purchaseAndSell
 })
 
 // CALCULATES SUBTOTAL BASED ON QUANTITY AND PRICE, TRIGGERED
@@ -71,7 +81,7 @@ function updateSubtotal () {
   }
 }
 
-// UPDATE SUBTOTAL WHEN QUANTITY IS CHANGED
+// TRIGGERS updateSubtotal() FUNCTION
 document.querySelectorAll('.quantity input').forEach(function (input) {
     input.onkeyup = updateSubtotal
 })
@@ -100,7 +110,7 @@ function interpolateValues(className, object, selector1, selector2) {
   }
 }
 
-// TRIGGERS NEWDAY FUNCTION
+// TRIGGERS newDay() FUNCTION
 document.getElementById('switchLocation').onclick = function() {newDay()}
 
 
@@ -115,19 +125,16 @@ function newDay() {
   }
 
   let vegetables = {
-    Cabbage: randomValue(2,5),
+    Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
     Oranges: randomValue(10,10),
   }
-
 
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.money', money)
   gameEnd()
-
 }
-
 
 // CHECKS REMAINING DAYS, DECREMENTS COUNTER OR STARTS NEW GAME
 function gameEnd() {
@@ -139,20 +146,25 @@ function gameEnd() {
     console.log(daysLeft)
     displayStats('.time', daysLeft)
     if (daysLeft === 0) {
-      displayStats('.time', 'LAST DAY')
+      displayStats('.time', 'LAST DAY!!!')
     }
   }
 }
 
 // START A NEW GAME
 function startGame() {
-  money = 200
+  money = 100
   daysLeft = 2
   vegetables = {
-    Cabbage: randomValue(2,5),
+    Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
     Oranges: randomValue(10,10),
   }
+  jacket = {
+  Cabbages: 5,
+  Bananas: 0,
+  Oranges: 0,
+}
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.time', daysLeft)
