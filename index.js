@@ -1,9 +1,10 @@
 /*
-2.check the amount of money available before making purchase
-3.check inventory before selling items
-
--NICE TO HAVE--------------------------------------------------
-1. Select location from multiple options
+-NICE TO HAVE----
+- Select location from multiple options
+- add a flashing color on the money/inventory if sold/bought
+- mobile optimised
+- dynamically create the HTML
+- instructions about the game
 
 
 */
@@ -133,6 +134,7 @@ function gameEnd() {
     displayStats('.time', daysLeft)
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
+      document.getElementById('switchLocation').innerText = 'END GAME'
     }
   }
 }
