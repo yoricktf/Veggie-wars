@@ -1,11 +1,11 @@
 /*
 -NICE TO HAVE----
 - Select location from multiple options
-- add a flashing color on the money/inventory if sold/bought
 - mobile optimised
+- add a flashing color on the money/inventory if sold/bought
 - dynamically create the HTML
 - instructions about the game
-
+- show highscore
 
 */
 let daysLeft = 0
