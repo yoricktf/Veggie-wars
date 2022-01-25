@@ -1,11 +1,11 @@
 /*
-1.a counter decrementing the number of days remaining, this gets
-decremented when switching between locations and ends the game when it reaches 0
+1.end of game alert
+2purchases button
 
-2.a money counter starting at 2000 that cannot go below zero that gets changed
-when buying or selling items
 
-3.an object to store item names and quantity that have been purchased
+reinitialize the money value when changing places
+accees
+
 
 4. a random number generated for the cost of the drugs that gets changed every
 time a location is switched.
@@ -14,15 +14,9 @@ time a location is switched.
 recalculates the prices
 */
 
-let daysLeft = 4
-let money = 200
+let daysLeft = 6
 
-// PRICES AND NAMES OF ITEMS IN THE MARKET
-let vegetables = {
-  Cabbage: randomValue(2,5),
-  Bananas: randomValue(5,10),
-  Oranges: randomValue(10,10),
-}
+let money = 200
 
 // INVENTORY OF THE ITEMS THE PLAYER HAS
 let jacket = {
@@ -37,11 +31,26 @@ function randomValue (min, multiplyer) {
   return value
 }
 
-// CALCULATES SUBTOTAL BASED ON QUANTITY AND PRICE, TRIGGERED WHEN QUANTITY IS ENTERED
+// TO PURCHASE ITEMS AND ADD THEM TO THE INVENTORY
+function purchase () {
+  document.querySelectorAll('.subtotal span').forEach(function (subTotal){
+    console.log(subTotal.textContent)
+  })
+
+
+
+}
+// TRIGGERING THE PURCHASE FUNCTION TO ADD ITEMS TO THE INVENTORY AND
+// REMOVE MONEY FROM THE WALLET
+document.querySelectorAll('.btn-buy').forEach(function (button) {
+  button.onclick = purchase
+})
+
+// CALCULATES SUBTOTAL BASED ON QUANTITY AND PRICE, TRIGGERED
+// WHEN QUANTITY IS ENTERED
 function updateSubtotal () {
   const products = document.getElementsByClassName('product')
   for (product of products) {
-    console.log(product)
     let price = product.querySelector('.price span').textContent
     let quantity = product.querySelector('.quantity input').value
     let subtotal = price * quantity
@@ -52,7 +61,7 @@ function updateSubtotal () {
 // UPDATE SUBTOTAL WHEN QUANTITY IS CHANGED
 document.querySelectorAll('.quantity input').forEach(function (input) {
     input.onkeyup = updateSubtotal
-  })
+})
 
 // DISPLAYS THE DAY COUNTER AND WALLET
 function displayStats(selector, value) {
@@ -65,13 +74,11 @@ function interpolateValues(className, object, selector1, selector2) {
   let keys = []
   let values = []
   let counter = 0
-
   // PASS THE VALUE AND KEYS TO THEIR RESPECTIVE ARRAYS
   for (let [key, value] of Object.entries(object)) {
     keys.push(key)
     values.push(value)
   };
-
   // SET THE KEY AND VALUE TO THE HTML
   for (item of inventory) {
     item.querySelector(selector1).textContent = keys[counter]
@@ -80,9 +87,9 @@ function interpolateValues(className, object, selector1, selector2) {
   }
 }
 
-
 // FUNCTION IS BEING TRIGGERED BUT NOT CHANGING THE PRICES WHEN CALLED AGAIN
 document.getElementById('switchLocation').onclick = function() {newDay()}
+
 function newDay() {
   let title = document.getElementById('location').innerText
   if (title === 'Baltimore') {
@@ -91,17 +98,23 @@ function newDay() {
     document.getElementById('location').innerText = 'Baltimore'
   }
 
+  let vegetables = {
+    Cabbage: randomValue(2,5),
+    Bananas: randomValue(5,10),
+    Oranges: randomValue(10,10),
+  }
+
   if (daysLeft > 0) {
     daysLeft -= 1
     console.log(daysLeft)
   }
-  // console.log(title)
 
-  // console.log('object');
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.time', daysLeft)
   displayStats('.money', money)
 }
+
+
 
 newDay()
