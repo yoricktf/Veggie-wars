@@ -1,17 +1,8 @@
 /*
-1.end of game alert
-2purchases button
-
-
-reinitialize the money value when changing places
-accees
-
-
-4. a random number generated for the cost of the drugs that gets changed every
-time a location is switched.
-
-5. a button to switch locations that changes the name of the place and
-recalculates the prices
+1.end of game alert and restart the game from the begining again
+2.check the amount of money available before making purchase
+3.check inventory before selling items
+4.refactor buy and sell method together into one.
 */
 
 let daysLeft = 6
@@ -20,9 +11,9 @@ let money = 200
 
 // INVENTORY OF THE ITEMS THE PLAYER HAS
 let jacket = {
-  Cabbage: 4,
-  Bananas: 6,
-  Oranges: 9,
+  Cabbage: 0,
+  Bananas: 0,
+  Oranges: 0,
 }
 
 // CALCULATE RANDOM VALUE PASSED ALONG FOR PRICES OF ITEMS
@@ -31,19 +22,41 @@ function randomValue (min, multiplyer) {
   return value
 }
 
-// TO PURCHASE ITEMS AND ADD THEM TO THE INVENTORY
+// ADD ITEMS TO THE INVENTORY AND REMOVE MONEY FROM THE WALLET, RERENDER THE INVENTORY
 function purchase () {
-  document.querySelectorAll('.subtotal span').forEach(function (subTotal){
-    console.log(subTotal.textContent)
+  document.querySelectorAll('.product').forEach(function (row){
+    let cost = row.querySelector('.subtotal span').textContent
+    money -= cost
+    displayStats('.money', money)
+    let name = row.querySelector('.name span').textContent
+    jacket[name] += Number(row.querySelector('.quantity input').value)
+    row.querySelector('.quantity input').value = ''
+    interpolateValues('items-cell', jacket, '.item', '.amount')
+    updateSubtotal()
   })
-
-
-
 }
-// TRIGGERING THE PURCHASE FUNCTION TO ADD ITEMS TO THE INVENTORY AND
-// REMOVE MONEY FROM THE WALLET
+// TRIGGERING THE PURCHASE FUNCTION
 document.querySelectorAll('.btn-buy').forEach(function (button) {
   button.onclick = purchase
+})
+
+// REMOVE ITEMS TO THE INVENTORY AND ADD MONEY TO THE WALLET, RERENDER THE INVENTORY
+function sell () {
+  document.querySelectorAll('.product').forEach(function (row){
+    let cost = Number(row.querySelector('.subtotal span').textContent)
+    console.log(cost);
+    money += cost
+    displayStats('.money', money)
+    let name = row.querySelector('.name span').textContent
+    jacket[name] -= Number(row.querySelector('.quantity input').value)
+    row.querySelector('.quantity input').value = ''
+    interpolateValues('items-cell', jacket, '.item', '.amount')
+    updateSubtotal()
+  })
+}
+// TRIGGERING THE SELL FUNCTION
+document.querySelectorAll('.btn-sell').forEach(function (button) {
+  button.onclick = sell
 })
 
 // CALCULATES SUBTOTAL BASED ON QUANTITY AND PRICE, TRIGGERED
@@ -87,7 +100,7 @@ function interpolateValues(className, object, selector1, selector2) {
   }
 }
 
-// FUNCTION IS BEING TRIGGERED BUT NOT CHANGING THE PRICES WHEN CALLED AGAIN
+// WRITE DOCUMENTATION FOR THIS FUNCTION
 document.getElementById('switchLocation').onclick = function() {newDay()}
 
 function newDay() {
