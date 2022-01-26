@@ -96,7 +96,6 @@ document.getElementById('switchLocation').onclick = function() {newDay()}
 // CHANGES LOCATION TEXT, REINITIALIZES THE VALUES OF THE VEGETABLES,
 //  COUNTS DOWN DAYS REMAINING, RERENDERS INVENTORY
 function newDay() {
-  chooseLocation()
   let vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
@@ -108,6 +107,7 @@ function newDay() {
   gameEnd()
 }
 
+// SELECT LOCATION TO TRAVEL TO
 function chooseLocation() {
   let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
   if (location === "A" || location === "BROOKLYN") {
@@ -133,6 +133,7 @@ function gameEnd() {
     daysLeft -= 1
     console.log(daysLeft)
     displayStats('.time', daysLeft)
+    chooseLocation()
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
       document.getElementById('switchLocation').innerText = 'END GAME'
@@ -143,7 +144,7 @@ function gameEnd() {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 10
+  daysLeft = 2
   vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
@@ -154,6 +155,7 @@ function startGame() {
   Bananas: 0,
   Oranges: 0,
 }
+  document.getElementById('switchLocation').innerText = 'SWITCH LOCATION'
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.time', daysLeft)
@@ -161,3 +163,7 @@ function startGame() {
 }
 
 startGame()
+// INSTRUCTIONS ON BOOT
+window.onload = function () {
+  alert(`Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a vegetable market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`)
+}
