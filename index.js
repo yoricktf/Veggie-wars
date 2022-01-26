@@ -1,13 +1,3 @@
-/*
--NICE TO HAVE----
-- Select location from multiple options
-- mobile optimised
-- add a flashing color on the money/inventory if sold/bought
-- dynamically create the HTML
-- instructions about the game
-- show highscore
-
-*/
 let daysLeft = 0
 let money = 0
 
@@ -106,12 +96,7 @@ document.getElementById('switchLocation').onclick = function() {newDay()}
 // CHANGES LOCATION TEXT, REINITIALIZES THE VALUES OF THE VEGETABLES,
 //  COUNTS DOWN DAYS REMAINING, RERENDERS INVENTORY
 function newDay() {
-  let title = document.getElementById('location').innerText
-  if (title === 'Baltimore') {
-    document.getElementById('location').innerText = 'New York'
-  } else {
-    document.getElementById('location').innerText = 'Baltimore'
-  }
+  chooseLocation()
   let vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
@@ -121,6 +106,22 @@ function newDay() {
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.money', money)
   gameEnd()
+}
+
+function chooseLocation() {
+  let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
+  if (location === "A" || location === "BROOKLYN") {
+    console.log('A');
+    document.getElementById('location').innerText ='Brooklyn'
+  } else if (location === "B" || location === "MANHATTAN") {
+    console.log('B');
+    document.getElementById('location').innerText ='Manhattan'
+  } else if (location === "C" || location === "QUEENS") {
+    console.log('C');
+    document.getElementById('location').innerText ='Queens'
+  } else {
+    chooseLocation()
+  }
 }
 
 // CHECKS REMAINING DAYS, DECREMENTS COUNTER OR STARTS NEW GAME
@@ -142,14 +143,14 @@ function gameEnd() {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 2
+  daysLeft = 10
   vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(5,10),
     Oranges: randomValue(10,10),
   }
   jacket = {
-  Cabbages: 5,
+  Cabbages: 0,
   Bananas: 0,
   Oranges: 0,
 }
