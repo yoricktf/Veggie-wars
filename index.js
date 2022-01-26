@@ -109,21 +109,18 @@ function vegtablesAvailable() {
   let location = document.getElementById('location').innerText
   let vegetables = {}
   if (location === 'Brooklyn') {
-    console.log('brook');
     return vegetables = {
     Cabbages: randomValue(2,5),
     Bananas: randomValue(6,9),
     Oranges: randomValue(10,10),
     }
   } else if (location === 'Manhattan') {
-    console.log('man');
     return vegetables = {
     Bananas: randomValue(6,9),
     Oranges: randomValue(10,10),
     Broccoli: randomValue(4,20),
     }
   } else if (location === 'Queens') {
-    console.log('que');
     return vegetables = {
     Cabbages: randomValue(2,5),
     Oranges: randomValue(10,10),
@@ -134,19 +131,23 @@ function vegtablesAvailable() {
 
 // SELECT LOCATION TO TRAVEL TO
 function chooseLocation() {
-  // let currentLocation = document.getElementById('location').innerText
-  let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
-  if (location === "A" || location === "BROOKLYN" || location === '1') {
-    document.getElementById('location').innerText ='Brooklyn'
-    newDay()
-  } else if (location === "B" || location === "MANHATTAN" || location === '2') {
-    document.getElementById('location').innerText ='Manhattan'
-    newDay()
-  } else if (location === "C" || location === "QUEENS" || location === '3') {
-    document.getElementById('location').innerText ='Queens'
-    newDay()
+  let endCondition = document.getElementById('switchLocation').innerText
+  if (endCondition !== 'END GAME') {
+    let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
+    if (location === "A" || location === "BROOKLYN" || location === '1') {
+      document.getElementById('location').innerText ='Brooklyn'
+      newDay()
+    } else if (location === "B" || location === "MANHATTAN" || location === '2') {
+      document.getElementById('location').innerText ='Manhattan'
+      newDay()
+    } else if (location === "C" || location === "QUEENS" || location === '3') {
+      document.getElementById('location').innerText ='Queens'
+      newDay()
+    } else {
+      chooseLocation()
+    }
   } else {
-    chooseLocation()
+    newDay()
   }
 }
 
@@ -157,7 +158,6 @@ function gameEnd() {
     startGame()
   } else {
     daysLeft -= 1
-    console.log(daysLeft)
     displayStats('.time', daysLeft)
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
@@ -169,7 +169,7 @@ function gameEnd() {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 4
+  daysLeft = 2
   let vegetables = vegtablesAvailable()
 
   jacket = {
