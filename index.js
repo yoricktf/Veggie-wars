@@ -6,6 +6,7 @@ let jacket = {
   Cabbages: 0,
   Bananas: 0,
   Oranges: 0,
+  Broccoli: 0,
 }
 
 // CALCULATE RANDOM VALUE PASSED ALONG FOR PRICES OF ITEMS
@@ -91,34 +92,59 @@ function interpolateValues(className, object, selector1, selector2) {
 }
 
 // TRIGGERS newDay() FUNCTION
-document.getElementById('switchLocation').onclick = function() {newDay()}
+document.getElementById('switchLocation').onclick = function () {chooseLocation()}
 
 // CHANGES LOCATION TEXT, REINITIALIZES THE VALUES OF THE VEGETABLES,
 //  COUNTS DOWN DAYS REMAINING, RERENDERS INVENTORY
 function newDay() {
-  let vegetables = {
-    Cabbages: randomValue(2,5),
-    Bananas: randomValue(5,10),
-    Oranges: randomValue(10,10),
-  }
+  let vegetables = vegtablesAvailable()
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.money', money)
   gameEnd()
 }
 
+// DISPLAY DIFFERENT VEGETABLES IN DIFFERENT LOCATIONS
+function vegtablesAvailable() {
+  let location = document.getElementById('location').innerText
+  let vegetables = {}
+  if (location === 'Brooklyn') {
+    console.log('brook');
+    return vegetables = {
+    Cabbages: randomValue(2,5),
+    Bananas: randomValue(6,9),
+    Oranges: randomValue(10,10),
+    }
+  } else if (location === 'Manhattan') {
+    console.log('man');
+    return vegetables = {
+    Bananas: randomValue(6,9),
+    Oranges: randomValue(10,10),
+    Broccoli: randomValue(4,20),
+    }
+  } else if (location === 'Queens') {
+    console.log('que');
+    return vegetables = {
+    Cabbages: randomValue(2,5),
+    Oranges: randomValue(10,10),
+    Broccoli: randomValue(4,20),
+    }
+  }
+}
+
 // SELECT LOCATION TO TRAVEL TO
 function chooseLocation() {
+  // let currentLocation = document.getElementById('location').innerText
   let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
-  if (location === "A" || location === "BROOKLYN") {
-    console.log('A');
+  if (location === "A" || location === "BROOKLYN" || location === '1') {
     document.getElementById('location').innerText ='Brooklyn'
-  } else if (location === "B" || location === "MANHATTAN") {
-    console.log('B');
+    newDay()
+  } else if (location === "B" || location === "MANHATTAN" || location === '2') {
     document.getElementById('location').innerText ='Manhattan'
-  } else if (location === "C" || location === "QUEENS") {
-    console.log('C');
+    newDay()
+  } else if (location === "C" || location === "QUEENS" || location === '3') {
     document.getElementById('location').innerText ='Queens'
+    newDay()
   } else {
     chooseLocation()
   }
@@ -133,7 +159,6 @@ function gameEnd() {
     daysLeft -= 1
     console.log(daysLeft)
     displayStats('.time', daysLeft)
-    chooseLocation()
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
       document.getElementById('switchLocation').innerText = 'END GAME'
@@ -144,16 +169,14 @@ function gameEnd() {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 2
-  vegetables = {
-    Cabbages: randomValue(2,5),
-    Bananas: randomValue(5,10),
-    Oranges: randomValue(10,10),
-  }
+  daysLeft = 4
+  let vegetables = vegtablesAvailable()
+
   jacket = {
   Cabbages: 0,
   Bananas: 0,
   Oranges: 0,
+  Broccoli: 0,
 }
   document.getElementById('switchLocation').innerText = 'SWITCH LOCATION'
   interpolateValues('items-cell', jacket, '.item', '.amount')
@@ -164,6 +187,6 @@ function startGame() {
 
 startGame()
 // INSTRUCTIONS ON BOOT
-window.onload = function () {
-  alert(`Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a vegetable market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`)
-}
+// window.onload = function () {
+//   alert(`Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`)
+// }
