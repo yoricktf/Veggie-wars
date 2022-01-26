@@ -198,7 +198,7 @@ function gameEnd() {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 2
+  daysLeft = 4
   let vegetables = vegtablesAvailable()
 
   jacket = {
