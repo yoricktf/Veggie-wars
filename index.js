@@ -1,3 +1,5 @@
+
+
 let daysLeft = 0
 let money = 0
 
@@ -130,10 +132,34 @@ function vegtablesAvailable() {
 }
 
 // SELECT LOCATION TO TRAVEL TO
-function chooseLocation() {
+async function chooseLocation() {
   let endCondition = document.getElementById('switchLocation').innerText
   if (endCondition !== 'END GAME') {
-    let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
+
+    // let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
+
+
+
+const { value: text } = await Swal.fire({
+  input: 'textarea',
+  inputLabel: 'Message',
+  inputPlaceholder: 'Type your message here...',
+  inputAttributes: {
+    'aria-label': 'Type your message here'
+  },
+  showCancelButton: true
+})
+console.log(text.toUpperCase())
+console.log(typeof(text));
+//   const test = text
+// console.log(test.toUppercase())
+
+// console.log(value);
+// console.log(text.toUppercase());
+let location = text.toUpperCase()
+
+
+
     if (location === "A" || location === "BROOKLYN" || location === '1') {
       document.getElementById('location').innerText ='Brooklyn'
       newDay()
@@ -154,7 +180,10 @@ function chooseLocation() {
 // CHECKS REMAINING DAYS, DECREMENTS COUNTER OR STARTS NEW GAME
 function gameEnd() {
   if (daysLeft === 0 ) {
-    alert(`GAME OVER!!!\nYour score is ${money}`)
+    swal.fire({
+      title: "GAME OVER!!!",
+      text: `Your score is ${money}`
+    })
     startGame()
   } else {
     daysLeft -= 1
@@ -187,6 +216,12 @@ function startGame() {
 
 startGame()
 // INSTRUCTIONS ON BOOT
-// window.onload = function () {
-//   alert(`Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`)
-// }
+window.onload = function () {
+  swal.fire({
+    title: "VEGGIE WARS",
+    text: `Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`,
+    button: {
+      text: "LETS SELL SOME VEGGIES!",
+    },
+  });
+}
