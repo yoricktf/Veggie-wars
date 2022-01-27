@@ -17,54 +17,57 @@ function randomValue (min, multiplyer) {
 
 // ADD/REMOVE ITEMS TO THE INVENTORY AND ADD/REMOVE MONEY FROM THE WALLET,
 // RERENDER THE INVENTORY
-function purchaseAndSell (event) {
-  document.querySelectorAll('.product').forEach(function (row){
-    let cost = Number(row.querySelector('.subtotal span').textContent)
-    let name = row.querySelector('.name span').textContent
-    let amount = row.querySelector('.quantity input').value
-    if (event.target.innerText === 'BUY') {
-      if (money >= cost) {
-        money -= cost
-        jacket[name] += Number(row.querySelector('.quantity input').value)
-        let timerInterval
-        Swal.fire({
-          title: 'YOU GOT IT',
-          // html: `you spent ${cost} and bought ${amount}`,
-          timer: 1500,
-          timerProgressBar: true,
-          icon: 'success',
-          willClose: () => {
-            clearInterval(timerInterval)
-          }
-        })
-      } else {
-        swal.fire("No cash",`You don't have enough money! You only have $${money}`,'error')
-      }
-    } else {
-      if (jacket[name] >= amount) {
-        money += cost
-        jacket[name] -= Number(row.querySelector('.quantity input').value)
-        let timerInterval
-        Swal.fire({
-          title: 'SOLD',
-          // html: `You sold ${amount} ${name} for ${cost}`,
-          timer: 1500,
-          timerProgressBar: true,
-          icon: 'success',
-          willClose: () => {
-            clearInterval(timerInterval)
-          }
-        })
-      }
-      else {
-        swal.fire("You ain't got it!",`You don't have enough ${name} to sell`,'error')
-      }
+function purchaseAndSell(event) {
+  console.log(event.target.parentNode.parentNode)
+  const row = event.target.parentNode.parentNode
+  let cost = Number(row.querySelector('.subtotal span').textContent)
+  let name = row.querySelector('.name span').textContent
+  let amount = row.querySelector('.quantity input').value
+  if (event.target.innerText === 'BUY') {
+    if (money >= cost && amount > 0) {
+      money -= cost
+      jacket[name] += Number(row.querySelector('.quantity input').value)
+      let timerInterval
+      console.log('bought')
+      Swal.fire({
+        title: 'YOU GOT IT',
+        html: `you spent $${cost} and bought ${amount} ${name}`,
+        timer: 1500,
+        timerProgressBar: true,
+        icon: 'success',
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      })
+    } else if (money < cost) {
+      console.log('notbought')
+      swal.fire("No cash", `You don't have enough money! You only have $${money}`, 'error')
     }
-    displayStats('.money', money)
-    row.querySelector('.quantity input').value = ''
-    interpolateValues('items-cell', jacket, '.item', '.amount')
-    updateSubtotal()
-  })
+  } else if (event.target.innerText === 'SELL') {
+    console.log('sellbutton');
+    if (jacket[name] >= amount) {
+      console.log('sold');
+      money += cost
+      jacket[name] -= Number(row.querySelector('.quantity input').value)
+      let timerInterval
+      Swal.fire({
+        title: 'SOLD',
+        html: `You sold ${amount} ${name} for $${cost}`,
+        timer: 1500,
+        timerProgressBar: true,
+        icon: 'success',
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      })
+    } else {
+      swal.fire("You ain't got it!", `You don't have enough ${name} to sell`, 'error')
+    }
+  }
+  displayStats('.money', money)
+  row.querySelector('.quantity input').value = ''
+  interpolateValues('items-cell', jacket, '.item', '.amount')
+  updateSubtotal()
 }
 
 // TRIGGERS purchaseAndSell() FUNCTION
@@ -165,8 +168,10 @@ const { value: location } = await Swal.fire({
     'Queens': 'Queens'
   },
   inputPlaceholder: 'WHERE YOU WANNA GO?',
-  // showCancelButton: true,
-  icon: 'question'
+  confirmButtonText: 'LETS GOOOOOO!',
+  showCancelButton: true,
+  icon: 'question',
+
 })
 
 let timerInterval
@@ -205,7 +210,8 @@ function gameEnd() {
     swal.fire({
       title: "GAME OVER!!!",
       text: `Your score is ${money}`,
-      icon: 'success'
+      icon: 'success',
+      confirmButtonText: 'PLAY AGAIN!'
     })
     startGame()
   } else {
@@ -232,7 +238,7 @@ function toggleButton(text) {
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 1
+  daysLeft = 10
   let vegetables = vegtablesAvailable()
 
   jacket = {
@@ -255,12 +261,10 @@ window.onload = function () {
   swal.fire({
     title: "VEGGIE WARS",
     imageUrl: 'dopewars.png',
-  imageWidth: 400,
-  imageHeight: 240,
-  imageAlt: 'Custom image',
+    imageWidth: 400,
+    imageHeight: 240,
+    imageAlt: 'Custom image',
     text: `Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`,
-    button: {
-      text: "LETS SELL SOME VEGGIES!",
-    },
+    confirmButtonText: 'LETS SELL SOME VEGGIES!'
   });
 }
