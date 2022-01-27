@@ -213,15 +213,26 @@ function gameEnd() {
     displayStats('.time', daysLeft)
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
-      document.getElementById('switchLocation').innerText = 'END GAME'
+      toggleButton('END GAME')
+
     }
+  }
+}
+
+function toggleButton(text) {
+  let button = document.getElementById('switchLocation')
+  button.innerText = text
+  if (button.innerText === 'END GAME') {
+    button.classList.add('warning')
+  } else {
+    button.classList.remove('warning')
   }
 }
 
 // START A NEW GAME
 function startGame() {
   money = 100
-  daysLeft = 4
+  daysLeft = 1
   let vegetables = vegtablesAvailable()
 
   jacket = {
@@ -230,7 +241,8 @@ function startGame() {
   Oranges: 0,
   Broccoli: 0,
 }
-  document.getElementById('switchLocation').innerText = 'SWITCH LOCATION'
+
+  toggleButton('SWITCH LOCATION')
   interpolateValues('items-cell', jacket, '.item', '.amount')
   interpolateValues('product', vegetables, '.name span', '.price span')
   displayStats('.time', daysLeft)

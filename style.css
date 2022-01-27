@@ -94,80 +94,81 @@ aside {
   display: flex;
 } */
 
-
 body {
-  font-family: sans-serif;
-  margin: 5px;
-}
-
-
-  body {
+    font-family: sans-serif;
     background: rgb(216, 216, 216);
     padding: 5px;
     margin: 5px;
-  }
+}
 
-  h1 {
-    margin: 0 0 10px;
-  }
-
-
-  table, td {
-    /* width: 100%; */
-    border: solid 1px rgb(227, 227, 227);
-    border-collapse: collapse;
-    text-align: center;
-  }
-
-  th {
-    font-size: .8em;
-    padding: 10px 0;
-  }
-
-  table {
-    width: 100%;
+h1 {
+  margin: 0 0 10px;
+}
 
 
-  }
-   input {
-     margin: 0 5px;
-     width: 60px;
-     height: ;
-   }
+table, td {
+  /* width: 100%; */
+  border: solid 1px rgb(227, 227, 227);
+  border-collapse: collapse;
+  text-align: center;
+}
 
-  .button {
-    margin: 5px;
-    width: 60px;
-  }
+th {
+  font-size: .8em;
+  padding: 10px 0;
+}
 
-  .btn-buy,
-  .btn-sell {
-    border: none;
-    color: #fff;
-    padding: 7px 0;
+table {
+  width: 100%;
+}
 
-  }
+input {
+  margin: 0 5px;
+  width: 60px;
+  height: ;
+}
 
-  .btn-sell {
-background-color: rgb(254, 96, 96);
-  }
+.button {
+  margin: 5px;
+  width: 60px;
+}
 
-  .btn-buy {
-background-color: rgb(21, 126, 21);
-  }
-  #switchLocation {
+.btn-buy,
+.btn-sell {
+  border: none;
+  color: #fff;
+  padding: 7px 0;
+  border-radius: 4px;
+}
 
-    width: 100%;
-    margin: 0 auto 10px;
-    color: #fff;
-    padding: 12px 0;
-    background-color: rgb(70, 123, 237);
-    border: none;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
+.btn-sell {
+  background-color: rgb(254, 96, 96);
+}
 
-  input::-webkit-outer-spin-button,
+.btn-buy {
+  background-color: rgb(21, 126, 21);
+}
+
+#switchLocation {
+  border-radius: 4px;
+  width: 100%;
+  margin: 0 auto 10px;
+  color: #fff;
+  padding: 12px 0;
+  border: none;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.btn-success {
+  background-color: rgb(70, 123, 237);
+}
+
+.warning {
+  background-color: red;
+}
+
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -180,7 +181,6 @@ h2 {
 
 #stats {
   display: flex;
-
 }
 
 #inventory-card, #stats, table {
@@ -215,7 +215,7 @@ h2 {
 }
 
 /* Extra small devices (phones, 600px and down) */
- @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   #switchLocation {
     position: fixed;
     bottom: 0;
@@ -227,9 +227,15 @@ h2 {
     width: 70%;
     margin: 0 auto;
   }
+
   tr {
     height: 100px;
   }
+
+  th {
+    font-size: 1em;
+  }
+
   .button {
     width: 90%;
   }
@@ -237,5 +243,6 @@ h2 {
   input {
     height: 40px;
     font-size: 1em;
+    width: 70%;
   }
 }
