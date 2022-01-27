@@ -94,13 +94,7 @@ aside {
   display: flex;
 } */
 
-Extra small devices (phones, 600px and down)
- @media only screen and (max-width: 600px) {
-#switchLocation {
-  position: fixed;
-  bottom: 0;
-}
- }
+
 body {
   font-family: sans-serif;
   margin: 5px;
@@ -165,7 +159,7 @@ background-color: rgb(21, 126, 21);
 
     width: 100%;
     margin: 0 auto 10px;
-
+    color: #fff;
     padding: 12px 0;
     background-color: rgb(70, 123, 237);
     border: none;
@@ -220,6 +214,13 @@ h2 {
   width: 50%;
 }
 
+/* Extra small devices (phones, 600px and down) */
+ @media only screen and (max-width: 600px) {
+  #switchLocation {
+    position: fixed;
+    bottom: 0;
+  }
+}
 
 @media only screen and (min-width: 600px) {
   body {
