@@ -94,12 +94,12 @@ document.querySelectorAll('.quantity input').forEach(function (input) {
 
 // DISPLAYS THE DAY COUNTER AND WALLET
 function displayStats(selector, value) {
-  document.querySelector(selector).textContent = value
-
-
-
-
-
+  let changingVariable = document.querySelector(selector)
+  changingVariable.textContent = value
+  // changingVariable.classList.add('increase')
+  // setTimeout(() => {
+  //   changingVariable.classList.remove('increase')
+  // }, 500);
 }
 
 // DISPLAYS THE PRODUCT AND YOUR INVENTORY, BOTH NAMES AND NO. OF ITEMS
