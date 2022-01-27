@@ -1,5 +1,3 @@
-
-
 let daysLeft = 0
 let money = 0
 
@@ -28,16 +26,38 @@ function purchaseAndSell (event) {
       if (money >= cost) {
         money -= cost
         jacket[name] += Number(row.querySelector('.quantity input').value)
+        let timerInterval
+        Swal.fire({
+          title: 'YOU GOT IT',
+          // html: `you spent ${cost} and bought ${amount}`,
+          timer: 1500,
+          timerProgressBar: true,
+          icon: 'success',
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        })
       } else {
-        alert(`you don't have enough money! You only have $${money}`)
+        swal.fire("No cash",`You don't have enough money! You only have $${money}`,'error')
       }
     } else {
       if (jacket[name] >= amount) {
         money += cost
         jacket[name] -= Number(row.querySelector('.quantity input').value)
+        let timerInterval
+        Swal.fire({
+          title: 'SOLD',
+          // html: `You sold ${amount} ${name} for ${cost}`,
+          timer: 1500,
+          timerProgressBar: true,
+          icon: 'success',
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        })
       }
       else {
-        alert(`you don't have enough ${name} to sell`)
+        swal.fire("You ain't got it!",`You don't have enough ${name} to sell`,'error')
       }
     }
     displayStats('.money', money)
@@ -136,37 +156,39 @@ async function chooseLocation() {
   let endCondition = document.getElementById('switchLocation').innerText
   if (endCondition !== 'END GAME') {
 
-    // let location = prompt('where would you like to go?\nA)Brooklyn     B)Manhattan     C)Queens').toUpperCase()
-
-
-
-const { value: text } = await Swal.fire({
-  input: 'textarea',
-  inputLabel: 'Message',
-  inputPlaceholder: 'Type your message here...',
-  inputAttributes: {
-    'aria-label': 'Type your message here'
+const { value: location } = await Swal.fire({
+  title: 'WHERE TO?',
+  input: 'select',
+  inputOptions: {
+    'Brooklyn': 'Brooklyn',
+    'Manhattan': 'Manhattan',
+    'Queens': 'Queens'
   },
-  showCancelButton: true
+  inputPlaceholder: 'WHERE YOU WANNA GO?',
+  // showCancelButton: true,
+  icon: 'question'
 })
-console.log(text.toUpperCase())
-console.log(typeof(text));
-//   const test = text
-// console.log(test.toUppercase())
 
-// console.log(value);
-// console.log(text.toUppercase());
-let location = text.toUpperCase()
+let timerInterval
+Swal.fire({
+  title: 'TRAVELING',
+  html: `You're headed towards ${location}`,
+  timer: 1500,
+  timerProgressBar: true,
+  icon: 'info',
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+})
 
-
-
-    if (location === "A" || location === "BROOKLYN" || location === '1') {
+// let location = text.toUpperCase()
+    if (location === "Brooklyn") {
       document.getElementById('location').innerText ='Brooklyn'
       newDay()
-    } else if (location === "B" || location === "MANHATTAN" || location === '2') {
+    } else if (location === "Manhattan" ) {
       document.getElementById('location').innerText ='Manhattan'
       newDay()
-    } else if (location === "C" || location === "QUEENS" || location === '3') {
+    } else if (location === "Queens") {
       document.getElementById('location').innerText ='Queens'
       newDay()
     } else {
@@ -182,7 +204,8 @@ function gameEnd() {
   if (daysLeft === 0 ) {
     swal.fire({
       title: "GAME OVER!!!",
-      text: `Your score is ${money}`
+      text: `Your score is ${money}`,
+      icon: 'success'
     })
     startGame()
   } else {
@@ -219,6 +242,10 @@ startGame()
 window.onload = function () {
   swal.fire({
     title: "VEGGIE WARS",
+    imageUrl: 'dopewars.png',
+  imageWidth: 500,
+  imageHeight: 300,
+  imageAlt: 'Custom image',
     text: `Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`,
     button: {
       text: "LETS SELL SOME VEGGIES!",
