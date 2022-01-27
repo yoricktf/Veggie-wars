@@ -95,6 +95,11 @@ document.querySelectorAll('.quantity input').forEach(function (input) {
 // DISPLAYS THE DAY COUNTER AND WALLET
 function displayStats(selector, value) {
   document.querySelector(selector).textContent = value
+
+
+
+
+
 }
 
 // DISPLAYS THE PRODUCT AND YOUR INVENTORY, BOTH NAMES AND NO. OF ITEMS
@@ -157,10 +162,12 @@ function vegtablesAvailable() {
 // SELECT LOCATION TO TRAVEL TO
 async function chooseLocation() {
   let endCondition = document.getElementById('switchLocation').innerText
+  let currentLocation = document.getElementById('location').innerText
   if (endCondition !== 'END GAME') {
 
 const { value: location } = await Swal.fire({
   title: 'WHERE TO?',
+  text: `You're in ${currentLocation}`,
   input: 'select',
   inputOptions: {
     'Brooklyn': 'Brooklyn',
@@ -169,9 +176,8 @@ const { value: location } = await Swal.fire({
   },
   inputPlaceholder: 'WHERE YOU WANNA GO?',
   confirmButtonText: 'LETS GOOOOOO!',
-  showCancelButton: true,
+  // showCancelButton: true,
   icon: 'question',
-
 })
 
 let timerInterval
@@ -186,7 +192,6 @@ Swal.fire({
   }
 })
 
-// let location = text.toUpperCase()
     if (location === "Brooklyn") {
       document.getElementById('location').innerText ='Brooklyn'
       newDay()
@@ -220,11 +225,11 @@ function gameEnd() {
     if (daysLeft === 0) {
       displayStats('.time', 'LAST DAY!!!')
       toggleButton('END GAME')
-
     }
   }
 }
 
+// SHOW END OF GAME BUTTON, ADD AND REMOVE CLASS FOR COLOR
 function toggleButton(text) {
   let button = document.getElementById('switchLocation')
   button.innerText = text
