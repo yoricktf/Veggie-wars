@@ -173,7 +173,7 @@ let timerInterval
 Swal.fire({
   title: 'TRAVELING',
   html: `You're headed towards ${location}`,
-  timer: 1500,
+  timer: 1000,
   timerProgressBar: true,
   icon: 'info',
   willClose: () => {
@@ -243,8 +243,8 @@ window.onload = function () {
   swal.fire({
     title: "VEGGIE WARS",
     imageUrl: 'dopewars.png',
-  imageWidth: 500,
-  imageHeight: 300,
+  imageWidth: 400,
+  imageHeight: 240,
   imageAlt: 'Custom image',
     text: `Based on John E. Dell's old Drug Wars game, Veggie Wars is a simulation of a farmers market. Veggie Wars is an All-International game which features buying and selling!\nYour goal is to make as much money as possible! You have 10 days of game time to make your fortune.`,
     button: {

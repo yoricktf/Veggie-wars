@@ -1,10 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap'); */
 
-body {
+/* body {
   margin: 0 auto;
   padding: 1em;
   max-width: 60em;
-  font-family: 'Roboto Mono', sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
   color: #2d354c;
   background-color: rgb(228, 226, 226);
@@ -12,13 +12,8 @@ body {
 
 tr {
   background-color: white;
-  margin: 100px;
-
 }
 
-.main {
-  display: flex;
-}
 
 button,
 input {
@@ -92,8 +87,154 @@ aside {
   background-color: #ffffff;
   margin: 20px;
   padding: 20px;
+  display: flex;
 }
 
 .items-cell {
   display: flex;
+} */
+
+Extra small devices (phones, 600px and down)
+ @media only screen and (max-width: 600px) {
+#switchLocation {
+  position: fixed;
+  bottom: 0;
+}
+ }
+body {
+  font-family: sans-serif;
+  margin: 5px;
+}
+
+
+  body {
+    background: rgb(216, 216, 216);
+    padding: 5px;
+    margin: 5px;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+  }
+
+
+  table, td {
+    /* width: 100%; */
+    border: solid 1px rgb(227, 227, 227);
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  th {
+    font-size: .8em;
+    padding: 10px 0;
+  }
+
+  table {
+    width: 100%;
+
+
+  }
+   input {
+     margin: 0 5px;
+     width: 60px;
+     height: ;
+   }
+
+  .button {
+    margin: 5px;
+    width: 60px;
+  }
+
+  .btn-buy,
+  .btn-sell {
+    border: none;
+    color: #fff;
+    padding: 7px 0;
+
+  }
+
+  .btn-sell {
+background-color: rgb(254, 96, 96);
+  }
+
+  .btn-buy {
+background-color: rgb(21, 126, 21);
+  }
+  #switchLocation {
+
+    width: 100%;
+    margin: 0 auto 10px;
+
+    padding: 12px 0;
+    background-color: rgb(70, 123, 237);
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 0 0 5px;
+}
+
+#stats {
+  display: flex;
+
+}
+
+#inventory-card, #stats, table {
+  background-color: #fff;
+  box-shadow: 0px 2px 3px rgb(152, 152, 152);
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.money-cell {
+  padding: 0 30px;
+}
+
+.cash, .times {
+  display: flex;
+}
+
+#stats p, #inventory p {
+  font-size: 1.5em;
+  margin: 3px;
+}
+
+#inventory {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.items-cell {
+  display: flex;
+  width: 50%;
+}
+
+
+@media only screen and (min-width: 600px) {
+  body {
+    width: 70%;
+    margin: 0 auto;
+  }
+  tr {
+    height: 100px;
+  }
+  .button {
+    width: 90%;
+  }
+
+  input {
+    height: 40px;
+    font-size: 1em;
+  }
 }
