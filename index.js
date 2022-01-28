@@ -28,7 +28,6 @@ function purchaseAndSell(event) {
       money -= cost
       jacket[name] += Number(row.querySelector('.quantity input').value)
       let timerInterval
-      console.log('bought')
       Swal.fire({
         title: 'YOU GOT IT',
         html: `you spent $${cost} and bought ${amount} ${name}`,
@@ -40,13 +39,10 @@ function purchaseAndSell(event) {
         }
       })
     } else if (money < cost) {
-      console.log('notbought')
       swal.fire("No cash", `You don't have enough money! You only have $${money}`, 'error')
     }
   } else if (event.target.innerText === 'SELL') {
-    console.log('sellbutton');
-    if (jacket[name] >= amount) {
-      console.log('sold');
+    if (jacket[name] >= amount && amount != 0) {
       money += cost
       jacket[name] -= Number(row.querySelector('.quantity input').value)
       let timerInterval
