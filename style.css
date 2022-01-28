@@ -43,6 +43,7 @@ input {
   color: #fff;
   padding: 7px 0;
   border-radius: 4px;
+  font-size: 1em;
 }
 
 .btn-sell {
@@ -118,15 +119,23 @@ h2 {
   width: 50%;
 }
 
-/* .increase {
+/* this was to try and have values flash when they change
+.increase {
+  background-color: green;
+}
+
+.decrease {
   background-color: red;
-} */
+}
+*/
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   #switchLocation {
+    box-sizing: border-box;
     position: fixed;
     bottom: 0;
+    width: 95%;
   }
 }
 /* larger devices */
