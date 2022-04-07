@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1", >
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <link rel="icon" type="image/banana-icon" href="favicon.png">
   <title>🔫 Veggie Wars</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
@@ -20,6 +21,7 @@
           <th>Quantity</th>
           <th>Subtotal</th>
           <th>Action</th>
+          <th>Chart</th>
         </tr>
       </thead>
       <tbody>
@@ -37,20 +39,8 @@
             <button class="btn button btn-buy">BUY</button>
             <button class="btn button btn-sell">SELL</button>
           </td>
-        </tr>
-
-        <tr class="product">
-          <td class="name">
-            <span>PRODUCT NAME</span>
-          </td>
-          <td class="price">$<span></span></td>
-          <td class="quantity">
-            <input type="number" value="" min="0" placeholder="Quantity" />
-          </td>
-          <td class="subtotal">$<span>0</span></td>
-          <td class="action">
-            <button class="btn button btn-buy">BUY</button>
-            <button class="btn button btn-sell">SELL</button>
+          <td>
+            <div id="chart"></div>
           </td>
         </tr>
 
@@ -67,6 +57,27 @@
             <button class="btn button btn-buy">BUY</button>
             <button class="btn button btn-sell">SELL</button>
           </td>
+          <!-- <td>
+            <div id="chart"></div>
+          </td> -->
+        </tr>
+
+        <tr class="product">
+          <td class="name">
+            <span>PRODUCT NAME</span>
+          </td>
+          <td class="price">$<span></span></td>
+          <td class="quantity">
+            <input type="number" value="" min="0" placeholder="Quantity" />
+          </td>
+          <td class="subtotal">$<span>0</span></td>
+          <td class="action">
+            <button class="btn button btn-buy">BUY</button>
+            <button class="btn button btn-sell">SELL</button>
+          </td>
+          <!-- <td>
+            <div id="chart"></div>
+          </td> -->
         </tr>
       </tbody>
     </table>
